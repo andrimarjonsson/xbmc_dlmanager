@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<settings>
+  <setting label="30000" type="text" id="trans_username" />
+  <setting label="30001" type="text" id="trans_password" option="hidden" />
+  <setting label="30002" type="number" id="trans_port" default="9091" />
+</settings>

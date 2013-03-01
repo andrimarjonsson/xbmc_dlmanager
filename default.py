@@ -1,28 +1,37 @@
 import xbmc
 import subprocess,os
+import xbmcaddon
+
+__settings__   = xbmcaddon.Addon(id="script.service.dlmanager")
+
 class Screensaver(xbmc.Monitor) :
-        xbmc.log(msg="DLMGR: Checking PlayBackState",level=xbmc.LOGDEBUG)
-        def __init__ (self):
-                xbmc.Monitor.__init__(self)
+    print("DLMGR: Checking PlayBackState")
 
-        def onScreensaverDeactivated(self):
-		xbmc.log(msg="DLMGR: XBMC in use",level=xbmc.LOGDEBUG)
-		os.system("sudo /etc/init.d/sickbeard stop") #stops the sickbeard service
-		os.system("special://home/addons/script.service.dlmanager/trans_speedlimit_on.sh") #puts transmission into speed limited mode
+    def __init__ (self):
+        xbmc.Monitor.__init__(self)
+        
+    def onScreensaverDeactivated(self):
+        print("DLMGR: XBMC in use")
+        os.system("sudo /etc/init.d/sickbeard stop") #stops the sickbeard service
+        scriptPath = xbmc.translatePath("special://home/addons/script.service.dlmanager/transmission_limit.sh")
+        os.system(scriptPath + " " + __settings__.getSetting( "trans_port" ) + " " + __settings__.getSetting( "trans_username" ) + " " + __settings__.getSetting( "trans_password" )) #puts transmission into speed limited mode
+        xbmc.executebuiltin("Notification(Sickbeard stopped. Transmission throttled.)")
 
-        def onScreensaverActivated(self):
-		xbmc.log(msg="DLMGR: XBMC in Standby",level=xbmc.LOGDEBUG)
-		os.system("sudo /etc/init.d/sickbeard start") #starts the sickbeard service
-		os.system("special://home/addons/script.service.dlmanager/trans_speedlimit_off.sh") #disables transmission speed limited mode
+    def onScreensaverActivated(self):
+        print("DLMGR: XBMC in Standby")
+        os.system("sudo /etc/init.d/sickbeard start") #starts the sickbeard service
+        scriptPath = xbmc.translatePath("special://home/addons/script.service.dlmanager/transmission_limit.sh")
+        os.system(scriptPath + " " + __settings__.getSetting( "trans_port" ) + " " + __settings__.getSetting( "trans_username" ) + " " + __settings__.getSetting( "trans_password" )) #disables transmission speed limited mode
 
-        def onAbortRequested(self):
-		xbmc.log(msg="DLMGR: XBMC is closing",level=xbmc.LOGDEBUG)
-		os.system("sudo /etc/init.d/sickbeard start") #starts the sickbeard service
-		os.system("special://home/addons/script.service.dlmanager/trans_speedlimit_off.sh") #disables transmission speed limited mode
+    def onAbortRequested(self):
+        print("DLMGR: XBMC is closing")
+        os.system("sudo /etc/init.d/sickbeard start") #starts the sickbeard service
+        scriptPath = xbmc.translatePath("special://home/addons/script.service.dlmanager/transmission_limit.sh")
+        os.system(scriptPath + " " + __settings__.getSetting( "trans_port" ) + " " + __settings__.getSetting( "trans_username" ) + " " + __settings__.getSetting( "trans_password" )) #disables transmission speed limited mode
 
-xbmc.log(msg="DLMGR: Working",level=xbmc.LOGDEBUG)
+print("DLMGR: Download Manager Script Loaded")
 
 monitor=Screensaver()
 
 while not xbmc.abortRequested: #End if XBMC closes
-        xbmc.sleep(5000) #Repeat (ms) 
+    xbmc.sleep(5000) #Repeat (ms) 
