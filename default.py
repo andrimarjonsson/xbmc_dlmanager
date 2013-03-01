@@ -17,7 +17,6 @@ class Screensaver(xbmc.Monitor) :
         print("DLMGR: XBMC in use")
         os.system("sudo /etc/init.d/sickbeard stop") #stops the sickbeard service
         trans_cmd = self.scriptPath + ' on ' + __settings__.getSetting("trans_port") + ' ' + __settings__.getSetting("trans_username") + ' ' + __settings__.getSetting("trans_password") # the command line to put transmission into speed limited mode
-        print("DLMGR: transmission command: " + trans_cmd)
         p = Popen(trans_cmd , shell=True, stdout=PIPE, stderr=PIPE)
         out, err = p.communicate()
         print "Return code: ", p.returncode
@@ -29,7 +28,6 @@ class Screensaver(xbmc.Monitor) :
         print("DLMGR: XBMC in Standby")
         os.system("sudo /etc/init.d/sickbeard start") #starts the sickbeard service
         trans_cmd = self.scriptPath + ' off ' + __settings__.getSetting("trans_port") + ' ' + __settings__.getSetting("trans_username") + ' ' + __settings__.getSetting("trans_password") # the command line to disable transmission speed limited mode
-        print("DLMGR: transmission command: " + trans_cmd)
         p = Popen(trans_cmd , shell=True, stdout=PIPE, stderr=PIPE)
         out, err = p.communicate()
         print "Return code: ", p.returncode
@@ -39,7 +37,6 @@ class Screensaver(xbmc.Monitor) :
         print("DLMGR: XBMC is closing")
         os.system("sudo /etc/init.d/sickbeard start") #starts the sickbeard service
         trans_cmd = self.scriptPath + ' off ' + __settings__.getSetting("trans_port") + ' ' + __settings__.getSetting("trans_username") + ' ' + __settings__.getSetting("trans_password") # the command line to disable transmission speed limited mode
-        print("DLMGR: transmission command: " + trans_cmd)
         p = Popen(trans_cmd , shell=True, stdout=PIPE, stderr=PIPE)
         out, err = p.communicate()
         print "Return code: ", p.returncode
