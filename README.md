@@ -13,5 +13,6 @@ I run XBian on a Raspberry Pi which I've found is unable to playback HD video wh
             xbian ALL=(ALL) NOPASSWD: ALL #where xbian is the user which runs my XBMC.
 
  *  extract the files into your xbmc/addons directory in a subdir called "script.service.dlmanager" and restart XBMC
+ *  edit the trans_speedlimit_on.sh and trans_speedlimit_off.sh scripts to include your transmission rpc user/password
 
 There is some debug logging if you need to confirm that its working, just switch on debug in XBMC and check your xbmc.log.
