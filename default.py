@@ -9,18 +9,18 @@ class Screensaver(xbmc.Monitor) :
     def onScreensaverDeactivated(self):
         print("DLMGR: XBMC in use")
         os.system("sudo /etc/init.d/sickbeard stop") #stops the sickbeard service
-        os.system("/home/xbian/.xbmc/addons/script.service.dlmanager/trans_speedlimit_on.sh") #puts transmission into speed limited mode
+        os.system("/home/xbian/.xbmc/addons/script.service.dlmanager/transmission_limit.sh on 9091 xbian raspberry") #puts transmission into speed limited mode
         xbmc.executebuiltin('Notification(Download Manager,Sickbeard stopped. Transmission throttled.,5000)')
 
     def onScreensaverActivated(self):
         print("DLMGR: XBMC in Standby")
         os.system("sudo /etc/init.d/sickbeard start") #starts the sickbeard service
-        os.system("/home/xbian/.xbmc/addons/script.service.dlmanager/trans_speedlimit_off.sh") #disables transmission speed limited mode
+        os.system("/home/xbian/.xbmc/addons/script.service.dlmanager/transmission_limit.sh off 9091 xbian raspberry") #disables transmission speed limited mode
 
     def onAbortRequested(self):
         print("DLMGR: XBMC is closing")
         os.system("sudo /etc/init.d/sickbeard start") #starts the sickbeard service
-        os.system("/home/xbian/.xbmc/addons/script.service.dlmanager/trans_speedlimit_off.sh") #disables transmission speed limited mode
+        os.system("/home/xbian/.xbmc/addons/script.service.dlmanager/transmission_limit.sh off 9091 xbian raspberry") #disables transmission speed limited mode
 
 print("DLMGR: Download Manager Loaded")
 
