@@ -19,8 +19,7 @@ class Screensaver(xbmc.Monitor) :
         trans_cmd = self.scriptPath + ' on ' + __settings__.getSetting("trans_port") + ' ' + __settings__.getSetting("trans_username") + ' ' + __settings__.getSetting("trans_password") # the command line to put transmission into speed limited mode
         p = Popen(trans_cmd , shell=True, stdout=PIPE, stderr=PIPE)
         out, err = p.communicate()
-        print "Return code: ", p.returncode
-        print out.rstrip(), err.rstrip()
+        print("DLMGR: transmission throttle: ",out.rstrip(), err.rstrip())
 
         xbmc.executebuiltin("Notification(Sickbeard stopped. Transmission throttled.)")
 
@@ -30,8 +29,7 @@ class Screensaver(xbmc.Monitor) :
         trans_cmd = self.scriptPath + ' off ' + __settings__.getSetting("trans_port") + ' ' + __settings__.getSetting("trans_username") + ' ' + __settings__.getSetting("trans_password") # the command line to disable transmission speed limited mode
         p = Popen(trans_cmd , shell=True, stdout=PIPE, stderr=PIPE)
         out, err = p.communicate()
-        print "Return code: ", p.returncode
-        print out.rstrip(), err.rstrip()
+        print("DLMGR: transmission unthrottle: ",out.rstrip(), err.rstrip())
 
     def onAbortRequested(self):
         print("DLMGR: XBMC is closing")
@@ -39,8 +37,7 @@ class Screensaver(xbmc.Monitor) :
         trans_cmd = self.scriptPath + ' off ' + __settings__.getSetting("trans_port") + ' ' + __settings__.getSetting("trans_username") + ' ' + __settings__.getSetting("trans_password") # the command line to disable transmission speed limited mode
         p = Popen(trans_cmd , shell=True, stdout=PIPE, stderr=PIPE)
         out, err = p.communicate()
-        print "Return code: ", p.returncode
-        print out.rstrip(), err.rstrip()
+        print("DLMGR: transmission unthrottle: ",out.rstrip(), err.rstrip())
 
 print("DLMGR: Download Manager Script Loaded")
 
