@@ -10,13 +10,11 @@ class Screensaver(xbmc.Monitor) :
 
     def __init__ (self):
         xbmc.Monitor.__init__(self)
-        self.scriptPath = xbmc.translatePath("special://home/addons/script.service.dlmanager/transmission_limit.sh")
-        print("DLMGR: script path: " + self.scriptPath)
         
     def onScreensaverDeactivated(self):
         print("DLMGR: XBMC in use")
-        os.system("sudo /etc/init.d/sickbeard stop") #stops the sickbeard service
-        trans_cmd = self.scriptPath + ' on ' + __settings__.getSetting("trans_port") + ' ' + __settings__.getSetting("trans_username") + ' ' + __settings__.getSetting("trans_password") # the command line to put transmission into speed limited mode
+        os.system("echo " + __settings__.getSetting("sudo_pass") + " | sudo /etc/init.d/sickbeard stop") #stops the sickbeard service
+        trans_cmd = 'transmission-remote --auth=' + __settings__.getSetting("trans_username") + ':' + __settings__.getSetting("trans_password") + ' -as' # the command line to put transmission into speed limited mode
         p = Popen(trans_cmd , shell=True, stdout=PIPE, stderr=PIPE)
         out, err = p.communicate()
         print("DLMGR: transmission throttle: ",out.rstrip(), err.rstrip())
@@ -24,16 +22,16 @@ class Screensaver(xbmc.Monitor) :
 
     def onScreensaverActivated(self):
         print("DLMGR: XBMC in Standby")
-        os.system("sudo /etc/init.d/sickbeard start") #starts the sickbeard service
-        trans_cmd = self.scriptPath + ' off ' + __settings__.getSetting("trans_port") + ' ' + __settings__.getSetting("trans_username") + ' ' + __settings__.getSetting("trans_password") # the command line to disable transmission speed limited mode
+        os.system("echo " + __settings__.getSetting("sudo_pass") + " | sudo /etc/init.d/sickbeard start") #starts the sickbeard service
+        trans_cmd = 'transmission-remote --auth=' + __settings__.getSetting("trans_username") + ':' + __settings__.getSetting("trans_password") + ' -AS' # the command line to disable transmission speed limited mode
         p = Popen(trans_cmd , shell=True, stdout=PIPE, stderr=PIPE)
         out, err = p.communicate()
         print("DLMGR: transmission unthrottle: ",out.rstrip(), err.rstrip())
 
     def onAbortRequested(self):
         print("DLMGR: XBMC is closing")
-        os.system("sudo /etc/init.d/sickbeard start") #starts the sickbeard service
-        trans_cmd = self.scriptPath + ' off ' + __settings__.getSetting("trans_port") + ' ' + __settings__.getSetting("trans_username") + ' ' + __settings__.getSetting("trans_password") # the command line to disable transmission speed limited mode
+        oos.system("echo " + __settings__.getSetting("sudo_pass") + " | sudo /etc/init.d/sickbeard start") #starts the sickbeard service
+        trans_cmd = 'transmission-remote --auth=' + __settings__.getSetting("trans_username") + ':' + __settings__.getSetting("trans_password") + ' -AS' # the command line to disable transmission speed limited mode
         p = Popen(trans_cmd , shell=True, stdout=PIPE, stderr=PIPE)
         out, err = p.communicate()
         print("DLMGR: transmission unthrottle: ",out.rstrip(), err.rstrip())
