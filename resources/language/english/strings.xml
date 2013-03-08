@@ -4,4 +4,5 @@
   <string id="30001">Transmission Password</string>
   <string id="30002">Transmission Port</string>
   <string id="30003">Sudo Password</string>
+  <string id="30004">transmission-remote Path</string>
 </strings>
