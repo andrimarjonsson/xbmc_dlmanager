@@ -7,22 +7,25 @@ I run XBian on a Raspberry Pi which I've found is unable to playback HD video wh
 
 ##installation##
 
- *  configure your speed limit settings in transmission by editing your settings.json
- *  extract the files into your xbmc/addons directory in a subdir called "script.service.dlmanager"
- *          chmod 744 transmission_limit.sh
- *  in XBMC go to the addon's config and enter your transmission RPC port, username and password
- *  this addon uses sudo to stop the sickbeard service, so you will need to edit your /etc/sudoers file to allow the user which XBMC runs under to run "sudo /etc/init.d/sickbeard stop|start" with out prompting for password. The easiest way is to just allow all sudo commands with out password prompt by putting something like this in your /etc/sudoers file: 
-
-            xbian ALL=(ALL) NOPASSWD: ALL #where xbian is the user which runs my XBMC.
-
-There is some debug logging if you need to confirm that its working, just switch on debug in XBMC and check your xbmc.log.
+ *  configure your speed limit settings in transmission by editing your settings.json (located at /usr/local/etc/transmission/settings.json by default)
+ *  extract the files into your xbmc/addons in a sub-directorycalled "script.service.dlmanager"
+ *  in XBMC go to the addon's config: system -> settings -> add-ons -> enabled add-ons -> services -> Download Manager -> config
+ *  enter your transmission RPC username / password (there is also an option for the directory path where your transmission-remote binary is stored the default should be correct for any normal apt-get install of transmission)
+ *  enter the sudo password for the user which runs XBMC
 
 ##todo##
 
- *  replace shell script with python curl wrapper to control transmission
+ *  allow configuration of speed limit settings with in XBMC addon config
  *  add support for couchpotato and headphones?
 
 ##change log##
+
+v0.3
+----
+
+ *  replaced shell script with python call to transmission-remote to control transmission
+ *  changed sudo command to control sickbeard to include password in command line (removing the need to edit your /etc/sudoers file)
+ *  added changelog.txt so these notes can be seen inside XBMC
 
 v0.2
 ----

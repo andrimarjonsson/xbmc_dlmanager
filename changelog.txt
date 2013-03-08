@@ -1,0 +1,19 @@
+v0.3
+----
+
+ *  replaced shell script with python call to transmission-remote to control transmission
+ *  changed sudo command to control sickbeard to include password in command line (removing the need to edit your /etc/sudoers file)
+ *  added changelog.txt so these notes can be seen inside XBMC
+
+v0.2
+----
+
+ *  replaced hardcoded path with XBMC way of working out script location
+ *  added settings.xml so transmission rpc port, user and pass can be set from with in XBMC rather than editing files
+ *  refactored into one shell script
+
+v0.1
+----
+
+ *  initial build
+ *  has hardcoded paths (naughty)
