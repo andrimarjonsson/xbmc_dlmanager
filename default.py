@@ -20,7 +20,7 @@ class Screensaver(xbmc.Monitor) :
         p = Popen(trans_cmd , shell=True, stdout=PIPE, stderr=PIPE)
         out, err = p.communicate()
         print("DLMGR: transmission throttle: ",out.rstrip(), err.rstrip())
-        xbmc.executebuiltin("Notification(Sickbeard stopped. Transmission throttled.,5000)")
+        xbmc.executebuiltin("Notification(Download Manager,Sickbeard stopped. Transmission throttled.)")
 
     def onScreensaverActivated(self):
         print("DLMGR: XBMC in Standby")
