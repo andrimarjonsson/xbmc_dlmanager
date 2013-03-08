@@ -1,5 +1,4 @@
 import xbmc
-import subprocess,os
 import xbmcaddon
 from subprocess import Popen, PIPE
 
